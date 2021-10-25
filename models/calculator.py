@@ -11,7 +11,7 @@ class Calculator:
         self.__result: int = self.__result_generator
 
     @property
-    def difficulty(self: object) -> int:
+    def difficulty(self) -> int:
         return self.__difficulty_level
 
     @property
@@ -45,15 +45,44 @@ class Calculator:
 
     @property
     def __value_generator(self) -> int:
-        return 0
+        if self.__difficulty_level == 1:
+            return randint(0, 10)
+        elif self.__difficulty_level == 2:
+            return randint(0, 100)
+        elif self.__difficulty_level == 3:
+            return randint(0, 1000)
+        elif self.__difficulty_level == 4:
+            return randint(0, 10000)
+        else:
+            return randint(0, 100000)
 
     @property
     def __result_generator(self) -> int:
-        return 0
+        if self.__operation == 1:
+            return self.__first_value + self.__second_value
+        elif self.__operation == 2:
+            return self.__first_value - self.__second_value
+        else:
+            return self.__first_value * self.__second_value
+
+    @property
+    def __op_symbol(self) -> str:
+        if self.__operation == 1:
+            return '+'
+        elif self.__operation == 2:
+            return '-'
+        else:
+            return '*'
 
     def check_result(self, answer: int) -> bool:
-        pass
+        check_answer: bool = False
+        if self.__result == answer:
+            print('Correct answer!')
+            check_answer = True
+        else:
+            print('Wrong answer!')
+        print(f'{self.__first_value} {self.__op_symbol} {self.__second_value} = {self.__result}')
+        return check_answer
 
     def show_operation(self) -> None:
-        pass
-
+        print(f'{self.__first_value} {self.__op_symbol} {self.__second_value} = ?')
